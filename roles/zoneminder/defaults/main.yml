@@ -1,0 +1,147 @@
+##########################################################################
+# Title:            Sandbox: template role                               #
+# Author(s):        Grostim                                              #
+# URL:              https://github.com/saltyorg/Saltbox_mod              #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+zoneminder_name: zoneminder
+
+################################
+# Paths
+################################
+
+zoneminder_paths_folder: "{{ zoneminder_name }}"
+zoneminder_paths_location: "{{ server_appdata_path }}/{{ zoneminder_paths_folder }}"
+zoneminder_paths_folders_list:
+  - "{{ zoneminder_paths_location }}"
+
+################################
+# Web
+################################
+
+zoneminder_web_subdomain: "{{ zoneminder_name }}"
+zoneminder_web_domain: "{{ user.domain }}"
+zoneminder_web_port: "80"
+zoneminder_web_url: "{{ 'https://' + zoneminder_web_subdomain + '.' + zoneminder_web_domain
+                        if (reverse_proxy_is_enabled)
+                        else 'http://localhost:' + zoneminder_web_port }}"
+
+################################
+# DNS
+################################
+
+zoneminder_dns_record: "{{ zoneminder_web_subdomain }}"
+zoneminder_dns_zone: "{{ zoneminder_web_domain }}"
+zoneminder_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+zoneminder_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}" #Remove this line if you don't need authelia authentication
+zoneminder_traefik_middleware: "{{ traefik_default_middleware + ',' + zoneminder_traefik_sso_middleware
+                              if (zoneminder_traefik_sso_middleware | length > 0)
+                              else traefik_default_middleware }}"
+zoneminder_traefik_certresolver: "{{ traefik_default_certresolver }}"
+zoneminder_traefik_enabled: true
+
+################################
+# Docker
+################################
+
+# Container
+zoneminder_docker_container: "{{ zoneminder_name }}"
+
+# Image
+zoneminder_docker_image_pull: true
+zoneminder_docker_image_tag: "latest"
+zoneminder_docker_image: "bkjaya1952/zoneminder-master-docker-latest:{{ zoneminder_docker_image_tag }}"
+
+# Ports
+zoneminder_docker_ports_defaults:
+  - "{{ zoneminder_web_port }}"
+zoneminder_docker_ports_custom: []
+zoneminder_docker_ports: "{{ zoneminder_docker_ports_defaults
+                                + zoneminder_docker_ports_custom
+                             if (not reverse_proxy_is_enabled)
+                             else [] + zoneminder_docker_ports_custom }}"
+
+# Envs
+zoneminder_docker_envs_default:
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+  TZ: "{{ tz }}"
+zoneminder_docker_envs_custom: {}
+zoneminder_docker_envs: "{{ zoneminder_docker_envs_default
+                               | combine(zoneminder_docker_envs_custom) }}"
+
+# Commands
+zoneminder_docker_commands_default: []
+zoneminder_docker_commands_custom: []
+zoneminder_docker_commands: "{{ zoneminder_docker_commands_default
+                                   + zoneminder_docker_commands_custom }}"
+
+# Volumes
+zoneminder_docker_volumes_default:
+  - "{{ zoneminder_paths_location }}:/config"
+  - "/mnt/unionfs/Media/ZM:/var/cache/zoneminder"
+zoneminder_docker_volumes_custom: []
+zoneminder_docker_volumes: "{{ zoneminder_docker_volumes_default
+                                  + zoneminder_docker_volumes_custom
+                                  + docker_volumes_downloads_common }}"
+
+# Devices
+zoneminder_docker_devices_default: []
+zoneminder_docker_devices_custom: []
+zoneminder_docker_devices: "{{ zoneminder_docker_devices_default
+                                  + zoneminder_docker_devices_custom }}"
+
+# Hosts
+zoneminder_docker_hosts_default: []
+zoneminder_docker_hosts_custom: []
+zoneminder_docker_hosts: "{{ docker_hosts_common
+                                | combine(zoneminder_docker_hosts_default)
+                                | combine(zoneminder_docker_hosts_custom) }}"
+
+# Labels
+zoneminder_docker_labels_default: {}
+zoneminder_docker_labels_custom: {}
+zoneminder_docker_labels: "{{ docker_labels_common
+                                 | combine(zoneminder_docker_labels_default)
+                                 | combine(zoneminder_docker_labels_custom) }}"
+
+# Hostname
+zoneminder_docker_hostname: "{{ zoneminder_name }}"
+
+# Networks
+zoneminder_docker_networks_alias: "{{ zoneminder_name }}"
+zoneminder_docker_networks_default: []
+zoneminder_docker_networks_custom: []
+zoneminder_docker_networks: "{{ docker_networks_common
+                                   + zoneminder_docker_networks_default
+                                   + zoneminder_docker_networks_custom }}"
+
+# Capabilities
+zoneminder_docker_capabilities_default: []
+zoneminder_docker_capabilities_custom: []
+zoneminder_docker_capabilities: "{{ zoneminder_docker_capabilities_default
+                                       + zoneminder_docker_capabilities_custom }}"
+
+# Security Opts
+zoneminder_docker_security_opts_default: []
+zoneminder_docker_security_opts_custom: []
+zoneminder_docker_security_opts: "{{ zoneminder_docker_security_opts_default
+                                        + zoneminder_docker_security_opts_custom }}"
+
+# Restart Policy
+zoneminder_docker_restart_policy: unless-stopped
+
+# State
+zoneminder_docker_state: started

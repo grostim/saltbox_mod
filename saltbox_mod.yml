@@ -10,3 +10,4 @@
     - { role: myrole, tags: ['myrole'] }
     - { role: helloworld, tags: ['helloworld'] }
     - { role: fava, tags: ['fava'] }
+    - { role: zoneminder, tags: ['zoneminder'] }
