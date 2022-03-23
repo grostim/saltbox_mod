@@ -1,0 +1,149 @@
+#########################################################################
+# Title:            Sandbox: fava                                       #
+# Author(s):        Superduper09, Kalroth, kowalski                     #
+# URL:              https://github.com/saltyorg/Sandbox                 #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+################################
+# Basics
+################################
+
+fava_name: fava
+
+################################
+# Paths
+################################
+
+fava_paths_folder: "{{ fava_name }}"
+fava_paths_location: "{{ server_appdata_path }}/{{ fava_paths_folder }}"
+fava_paths_folders_list:
+  - "{{ fava_paths_location }}"
+
+################################
+# Web
+################################
+
+fava_web_subdomain: "{{ fava_name }}"
+fava_web_domain: "{{ user.domain }}"
+fava_web_port: "5000"
+fava_web_url: "{{ 'https://' + fava_web_subdomain + '.' + fava_web_domain
+                   if (reverse_proxy_is_enabled)
+                   else 'http://localhost:' + fava_web_port }}"
+
+################################
+# DNS
+################################
+
+fava_dns_record: "{{ fava_web_subdomain }}"
+fava_dns_zone: "{{ fava_web_domain }}"
+fava_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+fava_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}"
+fava_traefik_middleware: "{{ traefik_default_middleware + ',' + fava_traefik_sso_middleware
+                              if (fava_traefik_sso_middleware | length > 0)
+                              else traefik_default_middleware }}"
+fava_traefik_certresolver: "{{ traefik_default_certresolver }}"
+fava_traefik_enabled: true
+
+################################
+# Docker
+################################
+
+# Container
+fava_docker_container: "{{ fava_name }}"
+
+# Image
+fava_docker_image_pull: true
+fava_docker_image_tag: "latest"
+fava_docker_image: "grostim/fava-docker:{{ fava_docker_image_tag }}"
+
+# Ports
+fava_docker_ports_defaults:
+  - "{{ fava_web_port }}"
+fava_docker_ports_custom: []
+fava_docker_ports: "{{ fava_docker_ports_defaults
+                           + fava_docker_ports_custom
+                        if (not reverse_proxy_is_enabled)
+                        else [] + fava_docker_ports_custom }}"
+
+# Envs
+fava_docker_envs_default:
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+  TZ: "{{ tz }}"
+fava_docker_envs_custom:
+  BEANCOUNT_FILE: "/myData/Famille.beancount"
+  FAVA_HOST: "0.0.0.0"
+fava_docker_envs: "{{ fava_docker_envs_default
+                          | combine(fava_docker_envs_custom) }}"
+
+# Commands
+fava_docker_commands_default: []
+fava_docker_commands_custom: []
+fava_docker_commands: "{{ fava_docker_commands_default
+                              + fava_docker_commands_custom }}"
+
+# Volumes
+fava_docker_volumes_default:
+  - "{{ fava_paths_location }}:/myData"
+fava_docker_volumes_custom:
+  - "/opt/.gitconfig:/root/.gitconfig"
+  - "/opt/ssh:/root/.ssh"
+fava_docker_volumes: "{{ fava_docker_volumes_default
+                             + fava_docker_volumes_custom }}"
+
+# Devices
+fava_docker_devices_default: []
+fava_docker_devices_custom: []
+fava_docker_devices: "{{ fava_docker_devices_default
+                             + fava_docker_devices_custom }}"
+
+# Hosts
+fava_docker_hosts_default: []
+fava_docker_hosts_custom: []
+fava_docker_hosts: "{{ docker_hosts_common
+                           | combine(fava_docker_hosts_default)
+                           | combine(fava_docker_hosts_custom) }}"
+
+# Labels
+fava_docker_labels_default: {}
+fava_docker_labels_custom: {}
+fava_docker_labels: "{{ docker_labels_common
+                            | combine(fava_docker_labels_default)
+                            | combine(fava_docker_labels_custom) }}"
+
+# Hostname
+fava_docker_hostname: "{{ fava_name }}"
+
+# Networks
+fava_docker_networks_alias: "{{ fava_name }}"
+fava_docker_networks_default: []
+fava_docker_networks_custom: []
+fava_docker_networks: "{{ docker_networks_common
+                              + fava_docker_networks_default
+                              + fava_docker_networks_custom }}"
+
+# Capabilities
+fava_docker_capabilities_default: []
+fava_docker_capabilities_custom: []
+fava_docker_capabilities: "{{ fava_docker_capabilities_default
+                                  + fava_docker_capabilities_custom }}"
+
+# Security Opts
+fava_docker_security_opts_default: []
+fava_docker_security_opts_custom: []
+fava_docker_security_opts: "{{ fava_docker_security_opts_default
+                                   + fava_docker_security_opts_custom }}"
+
+# Restart Policy
+fava_docker_restart_policy: unless-stopped
+
+# State
+fava_docker_state: started

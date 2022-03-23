@@ -9,3 +9,4 @@
     - { role: pre_tasks }
     - { role: myrole, tags: ['myrole'] }
     - { role: helloworld, tags: ['helloworld'] }
+    - { role: fava, tags: ['fava'] }
