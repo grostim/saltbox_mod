@@ -1,0 +1,152 @@
+##########################################################################
+# Title:            Sandbox: template role                               #
+# Author(s):        Grostim                                              #
+# URL:              https://github.com/saltyorg/Saltbox_mod              #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+shinobi_name: shinobi
+
+################################
+# Paths
+################################
+
+shinobi_paths_folder: "{{ shinobi_name }}"
+shinobi_paths_location: "{{ server_appdata_path }}/{{ shinobi_paths_folder }}"
+shinobi_paths_folders_list:
+  - "{{ shinobi_paths_location }}"
+
+################################
+# Web
+################################
+
+shinobi_web_subdomain: "{{ shinobi_name }}"
+shinobi_web_domain: "{{ user.domain }}"
+shinobi_web_port: "8080"
+shinobi_web_url: "{{ 'https://' + shinobi_web_subdomain + '.' + shinobi_web_domain
+                        if (reverse_proxy_is_enabled)
+                        else 'http://localhost:' + shinobi_web_port }}"
+
+################################
+# DNS
+################################
+
+shinobi_dns_record: "{{ shinobi_web_subdomain }}"
+shinobi_dns_zone: "{{ shinobi_web_domain }}"
+shinobi_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+shinobi_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}" #Remove this line if you don't need authelia authentication
+shinobi_traefik_middleware: "{{ traefik_default_middleware + ',' + shinobi_traefik_sso_middleware
+                              if (shinobi_traefik_sso_middleware | length > 0)
+                              else traefik_default_middleware }}"
+shinobi_traefik_certresolver: "{{ traefik_default_certresolver }}"
+shinobi_traefik_enabled: true
+
+################################
+# Docker
+################################
+
+# Container
+shinobi_docker_container: "{{ shinobi_name }}"
+
+# Image
+shinobi_docker_image_pull: true
+shinobi_docker_image_tag: "dev"
+shinobi_docker_image: "shinobisystems/shinobi:{{ shinobi_docker_image_tag }}"
+
+# Ports
+shinobi_docker_ports_defaults:
+  - "{{ shinobi_web_port }}"
+shinobi_docker_ports_custom: []
+shinobi_docker_ports: "{{ shinobi_docker_ports_defaults
+                                + shinobi_docker_ports_custom
+                             if (not reverse_proxy_is_enabled)
+                             else [] + shinobi_docker_ports_custom }}"
+
+# Envs
+shinobi_docker_envs_default:
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+  TZ: "{{ tz }}"
+shinobi_docker_envs_custom: {}
+shinobi_docker_envs: "{{ shinobi_docker_envs_default
+                               | combine(shinobi_docker_envs_custom) }}"
+
+# Commands
+shinobi_docker_commands_default: []
+shinobi_docker_commands_custom: []
+shinobi_docker_commands: "{{ shinobi_docker_commands_default
+                                   + shinobi_docker_commands_custom }}"
+
+# Volumes
+shinobi_docker_volumes_default:
+  - "{{ shinobi_paths_location }}/config:/config"
+  - "{{ shinobi_paths_location }}/customAutoLoad:/home/Shinobi/libs/customAutoLoad"
+  - "{{ shinobi_paths_location }}/database:/var/lib/mysql"
+  - "{{ shinobi_paths_location }}/plugins:/home/Shinobi/plugins"
+  - "/mnt/unionfs/Media/ZM:/home/Shinobi/videos"
+  - "/dev/shm/shinobi/streams:/dev/shm/streams"
+  - "/etc/localtime:/etc/localtime:ro"
+shinobi_docker_volumes_custom: []
+shinobi_docker_volumes: "{{ shinobi_docker_volumes_default
+                                  + shinobi_docker_volumes_custom
+                                  + docker_volumes_downloads_common }}"
+
+# Devices
+shinobi_docker_devices_default: []
+shinobi_docker_devices_custom: []
+shinobi_docker_devices: "{{ shinobi_docker_devices_default
+                                  + shinobi_docker_devices_custom }}"
+
+# Hosts
+shinobi_docker_hosts_default: []
+shinobi_docker_hosts_custom: []
+shinobi_docker_hosts: "{{ docker_hosts_common
+                                | combine(shinobi_docker_hosts_default)
+                                | combine(shinobi_docker_hosts_custom) }}"
+
+# Labels
+shinobi_docker_labels_default: {}
+shinobi_docker_labels_custom: {}
+shinobi_docker_labels: "{{ docker_labels_common
+                                 | combine(shinobi_docker_labels_default)
+                                 | combine(shinobi_docker_labels_custom) }}"
+
+# Hostname
+shinobi_docker_hostname: "{{ shinobi_name }}"
+
+# Networks
+shinobi_docker_networks_alias: "{{ shinobi_name }}"
+shinobi_docker_networks_default: []
+shinobi_docker_networks_custom: []
+shinobi_docker_networks: "{{ docker_networks_common
+                                   + shinobi_docker_networks_default
+                                   + shinobi_docker_networks_custom }}"
+
+# Capabilities
+shinobi_docker_capabilities_default: []
+shinobi_docker_capabilities_custom: []
+shinobi_docker_capabilities: "{{ shinobi_docker_capabilities_default
+                                       + shinobi_docker_capabilities_custom }}"
+
+# Security Opts
+shinobi_docker_security_opts_default: []
+shinobi_docker_security_opts_custom: []
+shinobi_docker_security_opts: "{{ shinobi_docker_security_opts_default
+                                        + shinobi_docker_security_opts_custom }}"
+
+# Restart Policy
+shinobi_docker_restart_policy: unless-stopped
+
+# State
+shinobi_docker_state: started
