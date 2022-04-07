@@ -7,6 +7,7 @@
     - ['/srv/git/saltbox/adv_settings.yml', '/srv/git/saltbox/defaults/adv_settings.yml.default']
   roles:
     - { role: pre_tasks }
+    - { role: blueiris, tags: ['blueiris'] }
     - { role: fava, tags: ['fava'] }
     - { role: helloworld, tags: ['helloworld'] }
     - { role: myrole, tags: ['myrole'] }

@@ -45,7 +45,7 @@ shinobi_dns_proxy: "{{ dns.proxied }}"
 # Traefik
 ################################
 
-shinobi_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}" #Remove this line if you don't need authelia authentication
+#shinobi_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}" #Remove this line if you don't need authelia authentication
 shinobi_traefik_middleware: "{{ traefik_default_middleware + ',' + shinobi_traefik_sso_middleware
                               if (shinobi_traefik_sso_middleware | length > 0)
                               else traefik_default_middleware }}"

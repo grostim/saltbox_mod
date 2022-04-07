@@ -1,0 +1,147 @@
+##########################################################################
+# Title:            Sandbox: template role                               #
+# Author(s):        Grostim                                              #
+# URL:              https://github.com/saltyorg/Saltbox_mod              #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+blueiris_name: blueiris
+
+################################
+# Paths
+################################
+
+blueiris_paths_folder: "{{ blueiris_name }}"
+blueiris_paths_location: "{{ server_appdata_path }}/{{ blueiris_paths_folder }}"
+blueiris_paths_folders_list:
+  - "{{ blueiris_paths_location }}"
+
+################################
+# Web
+################################
+
+blueiris_web_subdomain: "{{ blueiris_name }}"
+blueiris_web_domain: "{{ user.domain }}"
+blueiris_web_port: "8080"
+blueiris_web_url: "{{ 'https://' + blueiris_web_subdomain + '.' + blueiris_web_domain
+                        if (reverse_proxy_is_enabled)
+                        else 'http://localhost:' + blueiris_web_port }}"
+
+################################
+# DNS
+################################
+
+blueiris_dns_record: "{{ blueiris_web_subdomain }}"
+blueiris_dns_zone: "{{ blueiris_web_domain }}"
+blueiris_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+blueiris_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}" #Remove this line if you don't need authelia authentication
+blueiris_traefik_middleware: "{{ traefik_default_middleware + ',' + blueiris_traefik_sso_middleware
+                              if (blueiris_traefik_sso_middleware | length > 0)
+                              else traefik_default_middleware }}"
+blueiris_traefik_certresolver: "{{ traefik_default_certresolver }}"
+blueiris_traefik_enabled: true
+
+################################
+# Docker
+################################
+
+# Container
+blueiris_docker_container: "{{ blueiris_name }}"
+
+# Image
+blueiris_docker_image_pull: true
+blueiris_docker_image_tag: "latest"
+blueiris_docker_image: "jshridha/blueiris:{{ blueiris_docker_image_tag }}"
+
+# Ports
+blueiris_docker_ports_defaults:
+  - "{{ blueiris_web_port }}"
+blueiris_docker_ports_custom: []
+blueiris_docker_ports: "{{ blueiris_docker_ports_defaults
+                                + blueiris_docker_ports_custom
+                             if (not reverse_proxy_is_enabled)
+                             else [] + blueiris_docker_ports_custom }}"
+
+# Envs
+blueiris_docker_envs_default:
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+  TZ: "{{ tz }}"
+blueiris_docker_envs_custom: {}
+blueiris_docker_envs: "{{ blueiris_docker_envs_default
+                               | combine(blueiris_docker_envs_custom) }}"
+
+# Commands
+blueiris_docker_commands_default: []
+blueiris_docker_commands_custom: []
+blueiris_docker_commands: "{{ blueiris_docker_commands_default
+                                   + blueiris_docker_commands_custom }}"
+
+# Volumes
+blueiris_docker_volumes_default:
+  - "{{ blueiris_paths_location }}:/home/wineuser/prefix"
+blueiris_docker_volumes_custom: []
+blueiris_docker_volumes: "{{ blueiris_docker_volumes_default
+                                  + blueiris_docker_volumes_custom
+                                  + docker_volumes_downloads_common }}"
+
+# Devices
+blueiris_docker_devices_default: []
+blueiris_docker_devices_custom: []
+blueiris_docker_devices: "{{ blueiris_docker_devices_default
+                                  + blueiris_docker_devices_custom }}"
+
+# Hosts
+blueiris_docker_hosts_default: []
+blueiris_docker_hosts_custom: []
+blueiris_docker_hosts: "{{ docker_hosts_common
+                                | combine(blueiris_docker_hosts_default)
+                                | combine(blueiris_docker_hosts_custom) }}"
+
+# Labels
+blueiris_docker_labels_default: {}
+blueiris_docker_labels_custom: {}
+blueiris_docker_labels: "{{ docker_labels_common
+                                 | combine(blueiris_docker_labels_default)
+                                 | combine(blueiris_docker_labels_custom) }}"
+
+# Hostname
+blueiris_docker_hostname: "{{ blueiris_name }}"
+
+# Networks
+blueiris_docker_networks_alias: "{{ blueiris_name }}"
+blueiris_docker_networks_default: []
+blueiris_docker_networks_custom: []
+blueiris_docker_networks: "{{ docker_networks_common
+                                   + blueiris_docker_networks_default
+                                   + blueiris_docker_networks_custom }}"
+
+# Capabilities
+blueiris_docker_capabilities_default:
+  - privileged
+blueiris_docker_capabilities_custom: []
+blueiris_docker_capabilities: "{{ blueiris_docker_capabilities_default
+                                       + blueiris_docker_capabilities_custom }}"
+
+# Security Opts
+blueiris_docker_security_opts_default: []
+blueiris_docker_security_opts_custom: []
+blueiris_docker_security_opts: "{{ blueiris_docker_security_opts_default
+                                        + blueiris_docker_security_opts_custom }}"
+
+# Restart Policy
+blueiris_docker_restart_policy: unless-stopped
+
+# State
+blueiris_docker_state: started

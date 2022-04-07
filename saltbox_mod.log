@@ -1,116 +1,116 @@
 
-2022-03-23 17:48:45,161 p=1203690 u=root n=ansible | PLAY [localhost] ************************************************************************************************************************************************************************************************
-2022-03-23 17:48:45,174 p=1203690 u=root n=ansible | TASK [Gathering Facts] ******************************************************************************************************************************************************************************************
-2022-03-23 17:48:45,174 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:45 +0100 (0:00:00.016)       0:00:00.016 ******* 
-2022-03-23 17:48:47,709 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:47,725 p=1203690 u=root n=ansible | TASK [pre_tasks : APT | Remove APT locks] ***********************************************************************************************************************************************************************
-2022-03-23 17:48:47,726 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:47 +0100 (0:00:02.551)       0:00:02.568 ******* 
-2022-03-23 17:48:47,926 p=1203690 u=root n=ansible | ok: [localhost] => (item=/var/lib/apt/lists/lock)
-2022-03-23 17:48:48,044 p=1203690 u=root n=ansible | ok: [localhost] => (item=/var/cache/apt/archives/lock)
-2022-03-23 17:48:48,160 p=1203690 u=root n=ansible | ok: [localhost] => (item=/var/lib/dpkg/lock)
-2022-03-23 17:48:48,198 p=1203690 u=root n=ansible | TASK [shinobi : Add DNS record] *********************************************************************************************************************************************************************************
-2022-03-23 17:48:48,198 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:48 +0100 (0:00:00.472)       0:00:03.040 ******* 
-2022-03-23 17:48:48,217 p=1203690 u=root n=ansible | included: /srv/git/saltbox/resources/tasks/dns/tasker.yml for localhost
-2022-03-23 17:48:48,227 p=1203690 u=root n=ansible | TASK [shinobi : Install tld python package] *********************************************************************************************************************************************************************
-2022-03-23 17:48:48,227 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:48 +0100 (0:00:00.028)       0:00:03.069 ******* 
-2022-03-23 17:48:49,281 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:49,289 p=1203690 u=root n=ansible | TASK [shinobi : Get FLD] ****************************************************************************************************************************************************************************************
-2022-03-23 17:48:49,289 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:49 +0100 (0:00:01.061)       0:00:04.131 ******* 
-2022-03-23 17:48:49,611 p=1203690 u=root n=ansible | changed: [localhost]
-2022-03-23 17:48:49,619 p=1203690 u=root n=ansible | TASK [shinobi : Get subdomain var] ******************************************************************************************************************************************************************************
-2022-03-23 17:48:49,619 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:49 +0100 (0:00:00.330)       0:00:04.462 ******* 
-2022-03-23 17:48:49,653 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:49,660 p=1203690 u=root n=ansible | TASK [shinobi : Get subdomain] **********************************************************************************************************************************************************************************
-2022-03-23 17:48:49,661 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:49 +0100 (0:00:00.041)       0:00:04.503 ******* 
-2022-03-23 17:48:49,898 p=1203690 u=root n=ansible | changed: [localhost]
-2022-03-23 17:48:49,907 p=1203690 u=root n=ansible | TASK [shinobi : Get subdomain var] ******************************************************************************************************************************************************************************
-2022-03-23 17:48:49,907 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:49 +0100 (0:00:00.246)       0:00:04.749 ******* 
-2022-03-23 17:48:49,941 p=1203690 u=root n=ansible | skipping: [localhost]
-2022-03-23 17:48:49,949 p=1203690 u=root n=ansible | TASK [shinobi : Get subdomain] **********************************************************************************************************************************************************************************
-2022-03-23 17:48:49,949 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:49 +0100 (0:00:00.042)       0:00:04.792 ******* 
-2022-03-23 17:48:49,981 p=1203690 u=root n=ansible | skipping: [localhost]
-2022-03-23 17:48:49,989 p=1203690 u=root n=ansible | TASK [shinobi : Get subdomain var] ******************************************************************************************************************************************************************************
-2022-03-23 17:48:49,990 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:49 +0100 (0:00:00.040)       0:00:04.832 ******* 
-2022-03-23 17:48:50,022 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:50,030 p=1203690 u=root n=ansible | TASK [shinobi : Resources | Tasks | DNS | Tasker | Set '_dns_*' variables] **************************************************************************************************************************************
-2022-03-23 17:48:50,031 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:50 +0100 (0:00:00.041)       0:00:04.873 ******* 
-2022-03-23 17:48:50,068 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:50,076 p=1203690 u=root n=ansible | TASK [Resources | Tasks | DNS | Tasker | Sent task to DNS Role] *************************************************************************************************************************************************
-2022-03-23 17:48:50,076 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:50 +0100 (0:00:00.045)       0:00:04.918 ******* 
-2022-03-23 17:48:50,131 p=1203690 u=root n=ansible | TASK [dns : DNS Tasks] ******************************************************************************************************************************************************************************************
-2022-03-23 17:48:50,132 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:50 +0100 (0:00:00.055)       0:00:04.974 ******* 
-2022-03-23 17:48:50,180 p=1203690 u=root n=ansible | included: /srv/git/saltbox/resources/roles/dns/tasks/main2.yml for localhost
-2022-03-23 17:48:50,188 p=1203690 u=root n=ansible | TASK [dns : Cloudflare DNS Tasks] *******************************************************************************************************************************************************************************
-2022-03-23 17:48:50,189 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:50 +0100 (0:00:00.056)       0:00:05.031 ******* 
-2022-03-23 17:48:50,237 p=1203690 u=root n=ansible | included: /srv/git/saltbox/resources/roles/dns/tasks/cloudflare/main.yml for localhost
-2022-03-23 17:48:50,247 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record] ************************************************************************************************************************************************************************
-2022-03-23 17:48:50,247 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:50 +0100 (0:00:00.058)       0:00:05.089 ******* 
-2022-03-23 17:48:50,345 p=1203690 u=root n=ansible | included: /srv/git/saltbox/resources/roles/dns/tasks/cloudflare/subtasks/add_dns_record.yml for localhost
-2022-03-23 17:48:50,358 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Add DNS Record] *******************************************************************************************************************************************************
-2022-03-23 17:48:50,358 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:50 +0100 (0:00:00.110)       0:00:05.200 ******* 
-2022-03-23 17:48:55,870 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:55,879 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Set 'dns_record_print' variable] **************************************************************************************************************************************
-2022-03-23 17:48:55,879 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:55 +0100 (0:00:05.521)       0:00:10.721 ******* 
-2022-03-23 17:48:55,915 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:55,923 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Display DNS Record creation status] ***********************************************************************************************************************************
-2022-03-23 17:48:55,923 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:55 +0100 (0:00:00.044)       0:00:10.766 ******* 
-2022-03-23 17:48:55,960 p=1203690 u=root n=ansible | ok: [localhost] => {
+2022-03-27 09:24:20,631 p=2588025 u=root n=ansible | PLAY [localhost] ***************************************************************
+2022-03-27 09:24:20,668 p=2588025 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2022-03-27 09:24:20,668 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:20 +0200 (0:00:00.041)       0:00:00.041 ********** 
+2022-03-27 09:24:23,208 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:23,230 p=2588025 u=root n=ansible | TASK [pre_tasks : APT | Remove APT locks] **************************************
+2022-03-27 09:24:23,230 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:23 +0200 (0:00:02.561)       0:00:02.602 ********** 
+2022-03-27 09:24:23,496 p=2588025 u=root n=ansible | changed: [localhost] => (item=/var/lib/apt/lists/lock)
+2022-03-27 09:24:23,644 p=2588025 u=root n=ansible | ok: [localhost] => (item=/var/cache/apt/archives/lock)
+2022-03-27 09:24:23,804 p=2588025 u=root n=ansible | changed: [localhost] => (item=/var/lib/dpkg/lock)
+2022-03-27 09:24:23,849 p=2588025 u=root n=ansible | TASK [shinobi : Add DNS record] ************************************************
+2022-03-27 09:24:23,849 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:23 +0200 (0:00:00.619)       0:00:03.222 ********** 
+2022-03-27 09:24:23,889 p=2588025 u=root n=ansible | included: /srv/git/saltbox/resources/tasks/dns/tasker.yml for localhost
+2022-03-27 09:24:23,900 p=2588025 u=root n=ansible | TASK [shinobi : Install tld python package] ************************************
+2022-03-27 09:24:23,900 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:23 +0200 (0:00:00.050)       0:00:03.272 ********** 
+2022-03-27 09:24:26,420 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:26,443 p=2588025 u=root n=ansible | TASK [shinobi : Get FLD] *******************************************************
+2022-03-27 09:24:26,443 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:26 +0200 (0:00:02.542)       0:00:05.815 ********** 
+2022-03-27 09:24:26,865 p=2588025 u=root n=ansible | changed: [localhost]
+2022-03-27 09:24:26,877 p=2588025 u=root n=ansible | TASK [shinobi : Get subdomain var] *********************************************
+2022-03-27 09:24:26,877 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:26 +0200 (0:00:00.434)       0:00:06.249 ********** 
+2022-03-27 09:24:26,918 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:26,928 p=2588025 u=root n=ansible | TASK [shinobi : Get subdomain] *************************************************
+2022-03-27 09:24:26,928 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:26 +0200 (0:00:00.051)       0:00:06.301 ********** 
+2022-03-27 09:24:27,225 p=2588025 u=root n=ansible | changed: [localhost]
+2022-03-27 09:24:27,235 p=2588025 u=root n=ansible | TASK [shinobi : Get subdomain var] *********************************************
+2022-03-27 09:24:27,235 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.306)       0:00:06.607 ********** 
+2022-03-27 09:24:27,272 p=2588025 u=root n=ansible | skipping: [localhost]
+2022-03-27 09:24:27,282 p=2588025 u=root n=ansible | TASK [shinobi : Get subdomain] *************************************************
+2022-03-27 09:24:27,282 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.047)       0:00:06.654 ********** 
+2022-03-27 09:24:27,343 p=2588025 u=root n=ansible | skipping: [localhost]
+2022-03-27 09:24:27,371 p=2588025 u=root n=ansible | TASK [shinobi : Get subdomain var] *********************************************
+2022-03-27 09:24:27,371 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.089)       0:00:06.744 ********** 
+2022-03-27 09:24:27,409 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:27,418 p=2588025 u=root n=ansible | TASK [shinobi : Resources | Tasks | DNS | Tasker | Set '_dns_*' variables] *****
+2022-03-27 09:24:27,418 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.047)       0:00:06.791 ********** 
+2022-03-27 09:24:27,459 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:27,469 p=2588025 u=root n=ansible | TASK [Resources | Tasks | DNS | Tasker | Sent task to DNS Role] ****************
+2022-03-27 09:24:27,469 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.050)       0:00:06.841 ********** 
+2022-03-27 09:24:27,569 p=2588025 u=root n=ansible | TASK [dns : DNS Tasks] *********************************************************
+2022-03-27 09:24:27,569 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.100)       0:00:06.941 ********** 
+2022-03-27 09:24:27,620 p=2588025 u=root n=ansible | included: /srv/git/saltbox/resources/roles/dns/tasks/main2.yml for localhost
+2022-03-27 09:24:27,630 p=2588025 u=root n=ansible | TASK [dns : Cloudflare DNS Tasks] **********************************************
+2022-03-27 09:24:27,630 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.061)       0:00:07.003 ********** 
+2022-03-27 09:24:27,690 p=2588025 u=root n=ansible | included: /srv/git/saltbox/resources/roles/dns/tasks/cloudflare/main.yml for localhost
+2022-03-27 09:24:27,703 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record] ***************************************
+2022-03-27 09:24:27,703 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.072)       0:00:07.075 ********** 
+2022-03-27 09:24:27,780 p=2588025 u=root n=ansible | included: /srv/git/saltbox/resources/roles/dns/tasks/cloudflare/subtasks/add_dns_record.yml for localhost
+2022-03-27 09:24:27,793 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Add DNS Record] **********************
+2022-03-27 09:24:27,793 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:27 +0200 (0:00:00.090)       0:00:07.166 ********** 
+2022-03-27 09:24:33,399 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:33,409 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Set 'dns_record_print' variable] *****
+2022-03-27 09:24:33,409 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:05.615)       0:00:12.782 ********** 
+2022-03-27 09:24:33,454 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:33,465 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Display DNS Record creation status] ***
+2022-03-27 09:24:33,465 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.055)       0:00:12.837 ********** 
+2022-03-27 09:24:33,507 p=2588025 u=root n=ansible | ok: [localhost] => {
     "msg": "DNS Record for 'shinobi.familyflix.art' set to '135.181.209.247' was added. Proxy: False"
 }
-2022-03-23 17:48:55,968 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Add DNS Record] *******************************************************************************************************************************************************
-2022-03-23 17:48:55,968 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:55 +0100 (0:00:00.044)       0:00:10.810 ******* 
-2022-03-23 17:48:55,999 p=1203690 u=root n=ansible | skipping: [localhost]
-2022-03-23 17:48:56,009 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Set 'dns_record_print' variable] **************************************************************************************************************************************
-2022-03-23 17:48:56,009 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.041)       0:00:10.851 ******* 
-2022-03-23 17:48:56,039 p=1203690 u=root n=ansible | skipping: [localhost]
-2022-03-23 17:48:56,048 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Display DNS Record creation status] ***********************************************************************************************************************************
-2022-03-23 17:48:56,048 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.038)       0:00:10.890 ******* 
-2022-03-23 17:48:56,078 p=1203690 u=root n=ansible | skipping: [localhost]
-2022-03-23 17:48:56,087 p=1203690 u=root n=ansible | TASK [dns : Cloudflare | Remove DNS Record] *********************************************************************************************************************************************************************
-2022-03-23 17:48:56,087 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.038)       0:00:10.929 ******* 
-2022-03-23 17:48:56,117 p=1203690 u=root n=ansible | skipping: [localhost]
-2022-03-23 17:48:56,132 p=1203690 u=root n=ansible | TASK [shinobi : Remove existing Docker container] ***************************************************************************************************************************************************************
-2022-03-23 17:48:56,133 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.045)       0:00:10.975 ******* 
-2022-03-23 17:48:56,151 p=1203690 u=root n=ansible | included: /srv/git/saltbox/resources/tasks/docker/remove_docker_container.yml for localhost
-2022-03-23 17:48:56,162 p=1203690 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Remove Docker Container | Set '_var_prefix' variable] **************************************************************************************************************
-2022-03-23 17:48:56,162 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.029)       0:00:11.004 ******* 
-2022-03-23 17:48:56,174 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:56,183 p=1203690 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Remove Docker Container | Remove Docker Container] *****************************************************************************************************************
-2022-03-23 17:48:56,183 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.021)       0:00:11.026 ******* 
-2022-03-23 17:48:56,689 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:56,698 p=1203690 u=root n=ansible | TASK [shinobi : Create directories] *****************************************************************************************************************************************************************************
-2022-03-23 17:48:56,698 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.514)       0:00:11.540 ******* 
-2022-03-23 17:48:56,953 p=1203690 u=root n=ansible | ok: [localhost] => (item=/opt/shinobi)
-2022-03-23 17:48:56,962 p=1203690 u=root n=ansible | TASK [shinobi : Create Docker container] ************************************************************************************************************************************************************************
-2022-03-23 17:48:56,962 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.264)       0:00:11.805 ******* 
-2022-03-23 17:48:56,981 p=1203690 u=root n=ansible | included: /srv/git/saltbox/resources/tasks/docker/create_docker_container.yml for localhost
-2022-03-23 17:48:56,991 p=1203690 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Create Docker Container | Set '_var_prefix' variable] **************************************************************************************************************
-2022-03-23 17:48:56,992 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:56 +0100 (0:00:00.029)       0:00:11.834 ******* 
-2022-03-23 17:48:57,004 p=1203690 u=root n=ansible | ok: [localhost]
-2022-03-23 17:48:57,012 p=1203690 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Create Docker Container | Create Docker Container] *****************************************************************************************************************
-2022-03-23 17:48:57,013 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:48:57 +0100 (0:00:00.021)       0:00:11.855 ******* 
-2022-03-23 17:49:00,022 p=1203690 u=root n=ansible | changed: [localhost]
-2022-03-23 17:49:00,075 p=1203690 u=root n=ansible | PLAY RECAP ******************************************************************************************************************************************************************************************************
-2022-03-23 17:49:00,075 p=1203690 u=root n=ansible | localhost                  : ok=22   changed=3    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | Wednesday 23 March 2022  17:49:00 +0100 (0:00:03.062)       0:00:14.918 ******* 
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | =============================================================================== 
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | dns : Cloudflare | Add DNS Record | Add DNS Record ------------------------------------------------------------------------------------------------------------------------------------------------------- 5.52s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | shinobi : Resources | Tasks | Docker | Create Docker Container | Create Docker Container ----------------------------------------------------------------------------------------------------------------- 3.06s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | Gathering Facts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 2.55s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | shinobi : Install tld python package --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.06s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | shinobi : Resources | Tasks | Docker | Remove Docker Container | Remove Docker Container ----------------------------------------------------------------------------------------------------------------- 0.51s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | pre_tasks : APT | Remove APT locks ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.47s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | shinobi : Get FLD ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.33s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | shinobi : Create directories ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.26s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | shinobi : Get subdomain ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.25s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | dns : Cloudflare | Add DNS Record ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.11s
-2022-03-23 17:49:00,076 p=1203690 u=root n=ansible | dns : Cloudflare DNS Tasks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.06s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | dns : DNS Tasks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.06s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | Resources | Tasks | DNS | Tasker | Sent task to DNS Role ------------------------------------------------------------------------------------------------------------------------------------------------- 0.06s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | dns : Cloudflare | Remove DNS Record --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.05s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | shinobi : Resources | Tasks | DNS | Tasker | Set '_dns_*' variables -------------------------------------------------------------------------------------------------------------------------------------- 0.05s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | dns : Cloudflare | Add DNS Record | Set 'dns_record_print' variable -------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | dns : Cloudflare | Add DNS Record | Display DNS Record creation status ----------------------------------------------------------------------------------------------------------------------------------- 0.04s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | shinobi : Get subdomain var ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.04s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | shinobi : Get subdomain var ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.04s
-2022-03-23 17:49:00,077 p=1203690 u=root n=ansible | dns : Cloudflare | Add DNS Record | Add DNS Record ------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
+2022-03-27 09:24:33,523 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Add DNS Record] **********************
+2022-03-27 09:24:33,523 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.057)       0:00:12.895 ********** 
+2022-03-27 09:24:33,557 p=2588025 u=root n=ansible | skipping: [localhost]
+2022-03-27 09:24:33,567 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Set 'dns_record_print' variable] *****
+2022-03-27 09:24:33,567 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.043)       0:00:12.939 ********** 
+2022-03-27 09:24:33,602 p=2588025 u=root n=ansible | skipping: [localhost]
+2022-03-27 09:24:33,611 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Add DNS Record | Display DNS Record creation status] ***
+2022-03-27 09:24:33,611 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.044)       0:00:12.983 ********** 
+2022-03-27 09:24:33,647 p=2588025 u=root n=ansible | skipping: [localhost]
+2022-03-27 09:24:33,657 p=2588025 u=root n=ansible | TASK [dns : Cloudflare | Remove DNS Record] ************************************
+2022-03-27 09:24:33,658 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.046)       0:00:13.030 ********** 
+2022-03-27 09:24:33,717 p=2588025 u=root n=ansible | skipping: [localhost]
+2022-03-27 09:24:33,761 p=2588025 u=root n=ansible | TASK [shinobi : Remove existing Docker container] ******************************
+2022-03-27 09:24:33,762 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.104)       0:00:13.134 ********** 
+2022-03-27 09:24:33,783 p=2588025 u=root n=ansible | included: /srv/git/saltbox/resources/tasks/docker/remove_docker_container.yml for localhost
+2022-03-27 09:24:33,795 p=2588025 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Remove Docker Container | Set '_var_prefix' variable] ***
+2022-03-27 09:24:33,795 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.033)       0:00:13.167 ********** 
+2022-03-27 09:24:33,810 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:33,821 p=2588025 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Remove Docker Container | Remove Docker Container] ***
+2022-03-27 09:24:33,822 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:33 +0200 (0:00:00.026)       0:00:13.194 ********** 
+2022-03-27 09:24:42,072 p=2588025 u=root n=ansible | changed: [localhost]
+2022-03-27 09:24:42,082 p=2588025 u=root n=ansible | TASK [shinobi : Create directories] ********************************************
+2022-03-27 09:24:42,082 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:42 +0200 (0:00:08.260)       0:00:21.455 ********** 
+2022-03-27 09:24:42,418 p=2588025 u=root n=ansible | ok: [localhost] => (item=/opt/shinobi)
+2022-03-27 09:24:42,429 p=2588025 u=root n=ansible | TASK [shinobi : Create Docker container] ***************************************
+2022-03-27 09:24:42,429 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:42 +0200 (0:00:00.346)       0:00:21.802 ********** 
+2022-03-27 09:24:42,458 p=2588025 u=root n=ansible | included: /srv/git/saltbox/resources/tasks/docker/create_docker_container.yml for localhost
+2022-03-27 09:24:42,472 p=2588025 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Create Docker Container | Set '_var_prefix' variable] ***
+2022-03-27 09:24:42,472 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:42 +0200 (0:00:00.042)       0:00:21.844 ********** 
+2022-03-27 09:24:42,487 p=2588025 u=root n=ansible | ok: [localhost]
+2022-03-27 09:24:42,497 p=2588025 u=root n=ansible | TASK [shinobi : Resources | Tasks | Docker | Create Docker Container | Create Docker Container] ***
+2022-03-27 09:24:42,497 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:42 +0200 (0:00:00.025)       0:00:21.869 ********** 
+2022-03-27 09:24:47,610 p=2588025 u=root n=ansible | changed: [localhost]
+2022-03-27 09:24:47,650 p=2588025 u=root n=ansible | PLAY RECAP *********************************************************************
+2022-03-27 09:24:47,650 p=2588025 u=root n=ansible | localhost                  : ok=22   changed=5    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | Sunday 27 March 2022  09:24:47 +0200 (0:00:05.153)       0:00:27.023 ********** 
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | =============================================================================== 
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | shinobi : Resources | Tasks | Docker | Remove Docker Container | Remove Docker Container --- 8.26s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | dns : Cloudflare | Add DNS Record | Add DNS Record ---------------------- 5.62s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | shinobi : Resources | Tasks | Docker | Create Docker Container | Create Docker Container --- 5.15s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | Gathering Facts --------------------------------------------------------- 2.56s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | shinobi : Install tld python package ------------------------------------ 2.54s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | pre_tasks : APT | Remove APT locks -------------------------------------- 0.62s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | shinobi : Get FLD ------------------------------------------------------- 0.43s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | shinobi : Create directories -------------------------------------------- 0.35s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | shinobi : Get subdomain ------------------------------------------------- 0.31s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | dns : Cloudflare | Remove DNS Record ------------------------------------ 0.10s
+2022-03-27 09:24:47,651 p=2588025 u=root n=ansible | Resources | Tasks | DNS | Tasker | Sent task to DNS Role ---------------- 0.10s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | dns : Cloudflare | Add DNS Record --------------------------------------- 0.09s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | shinobi : Get subdomain ------------------------------------------------- 0.09s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | dns : Cloudflare DNS Tasks ---------------------------------------------- 0.07s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | dns : DNS Tasks --------------------------------------------------------- 0.06s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | dns : Cloudflare | Add DNS Record | Display DNS Record creation status --- 0.06s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | dns : Cloudflare | Add DNS Record | Set 'dns_record_print' variable ----- 0.06s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | shinobi : Get subdomain var --------------------------------------------- 0.05s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | shinobi : Add DNS record ------------------------------------------------ 0.05s
+2022-03-27 09:24:47,652 p=2588025 u=root n=ansible | shinobi : Resources | Tasks | DNS | Tasker | Set '_dns_*' variables ----- 0.05s
