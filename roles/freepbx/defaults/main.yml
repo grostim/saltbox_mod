@@ -1,0 +1,162 @@
+##########################################################################
+# Title:            Sandbox: template role                               #
+# Author(s):        Grostim                                              #
+# URL:              https://github.com/saltyorg/Saltbox_mod              #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+freepbx_name: freepbx
+
+################################
+# Paths
+################################
+
+freepbx_paths_folder: "{{ freepbx_name }}"
+freepbx_paths_location: "{{ server_appdata_path }}/{{ freepbx_paths_folder }}"
+freepbx_paths_folders_list:
+  - "{{ freepbx_paths_location }}"
+
+################################
+# Web
+################################
+
+freepbx_web_subdomain: "{{ freepbx_name }}"
+freepbx_web_domain: "{{ user.domain }}"
+freepbx_web_port: "80"
+freepbx_web_url: "{{ 'https://' + freepbx_web_subdomain + '.' + freepbx_web_domain
+                        if (reverse_proxy_is_enabled)
+                        else 'http://localhost:' + freepbx_web_port }}"
+
+################################
+# DNS
+################################
+
+freepbx_dns_record: "{{ freepbx_web_subdomain }}"
+freepbx_dns_zone: "{{ freepbx_web_domain }}"
+freepbx_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+freepbx_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}" #Remove this line if you don't need authelia authentication
+freepbx_traefik_middleware: "{{ traefik_default_middleware + ',' + freepbx_traefik_sso_middleware
+                              if (freepbx_traefik_sso_middleware | length > 0)
+                              else traefik_default_middleware }}"
+freepbx_traefik_certresolver: "{{ traefik_default_certresolver }}"
+freepbx_traefik_enabled: true
+
+################################
+# Docker
+################################
+
+# Container
+freepbx_docker_container: "{{ freepbx_name }}"
+
+# Image
+freepbx_docker_image_pull: true
+freepbx_docker_image_tag: "latest"
+freepbx_docker_image: "tiredofit/freepbx:{{ freepbx_docker_image_tag }}"
+
+# Ports
+freepbx_docker_ports_defaults:
+  - "{{ freepbx_web_port }}"
+  - "5060"
+  - "5160"
+  - "18000-20000/udp"
+freepbx_docker_ports_custom: []
+freepbx_docker_ports: "{{ freepbx_docker_ports_defaults
+                                + freepbx_docker_ports_custom
+                             if (not reverse_proxy_is_enabled)
+                             else [] + freepbx_docker_ports_custom }}"
+
+# Envs
+freepbx_docker_envs_default:
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+  TZ: "{{ tz }}"
+  DB_EMBEDDED: "false"
+  DB_HOST: "mariadb"
+  DB_PORT: "3306"
+  DB_NAME: "asterisk"
+  DB_USER: "saltbox"
+  DB_PASS: "sorg1234"
+  HTTP_PORT: "80"
+  INSTALL_ADDITIONAL_MODULES: ""
+
+freepbx_docker_envs_custom: {}
+freepbx_docker_envs: "{{ freepbx_docker_envs_default
+                               | combine(freepbx_docker_envs_custom) }}"
+
+# Commands
+freepbx_docker_commands_default: []
+freepbx_docker_commands_custom: []
+freepbx_docker_commands: "{{ freepbx_docker_commands_default
+                                   + freepbx_docker_commands_custom }}"
+
+# Volumes
+freepbx_docker_volumes_default:
+  - "{{ freepbx_paths_location }}/certs:/certs"
+  - "{{ freepbx_paths_location }}/html:/var/www/html"
+  - "{{ freepbx_paths_location }}/log:/var/log/"
+  - "{{ freepbx_paths_location }}/data:/data/"
+  - "{{ freepbx_paths_location }}/custom:/assets/custom"
+freepbx_docker_volumes_custom: []
+freepbx_docker_volumes: "{{ freepbx_docker_volumes_default
+                                  + freepbx_docker_volumes_custom
+                                  }}"
+
+# Devices
+freepbx_docker_devices_default: []
+freepbx_docker_devices_custom: []
+freepbx_docker_devices: "{{ freepbx_docker_devices_default
+                                  + freepbx_docker_devices_custom }}"
+
+# Hosts
+freepbx_docker_hosts_default: []
+freepbx_docker_hosts_custom: []
+freepbx_docker_hosts: "{{ docker_hosts_common
+                                | combine(freepbx_docker_hosts_default)
+                                | combine(freepbx_docker_hosts_custom) }}"
+
+# Labels
+freepbx_docker_labels_default: {}
+freepbx_docker_labels_custom: {}
+freepbx_docker_labels: "{{ docker_labels_common
+                                 | combine(freepbx_docker_labels_default)
+                                 | combine(freepbx_docker_labels_custom) }}"
+
+# Hostname
+freepbx_docker_hostname: "{{ freepbx_name }}"
+
+# Networks
+freepbx_docker_networks_alias: "{{ freepbx_name }}"
+freepbx_docker_networks_default: []
+freepbx_docker_networks_custom: []
+freepbx_docker_networks: "{{ docker_networks_common
+                                   + freepbx_docker_networks_default
+                                   + freepbx_docker_networks_custom }}"
+
+# Capabilities
+freepbx_docker_capabilities_default: []
+freepbx_docker_capabilities_custom: []
+freepbx_docker_capabilities: "{{ freepbx_docker_capabilities_default
+                                       + freepbx_docker_capabilities_custom }}"
+
+# Security Opts
+freepbx_docker_security_opts_default: []
+freepbx_docker_security_opts_custom: []
+freepbx_docker_security_opts: "{{ freepbx_docker_security_opts_default
+                                        + freepbx_docker_security_opts_custom }}"
+
+# Restart Policy
+freepbx_docker_restart_policy: unless-stopped
+
+# State
+freepbx_docker_state: started

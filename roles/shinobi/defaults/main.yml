@@ -78,6 +78,13 @@ shinobi_docker_envs_default:
   PUID: "{{ uid }}"
   PGID: "{{ gid }}"
   TZ: "{{ tz }}"
+  DB_DISABLE_INCLUDED: "true"
+  DB_USER: "saltbox"
+  DB_PASSWORD: "sorg1234"
+  DB_HOST: "mariadb"
+  DB_DATABASE: "ccio"
+  DB_PORT: "3306"
+
 shinobi_docker_envs_custom: {}
 shinobi_docker_envs: "{{ shinobi_docker_envs_default
                                | combine(shinobi_docker_envs_custom) }}"
@@ -92,7 +99,6 @@ shinobi_docker_commands: "{{ shinobi_docker_commands_default
 shinobi_docker_volumes_default:
   - "{{ shinobi_paths_location }}/config:/config"
   - "{{ shinobi_paths_location }}/customAutoLoad:/home/Shinobi/libs/customAutoLoad"
-  - "{{ shinobi_paths_location }}/database:/var/lib/mysql"
   - "{{ shinobi_paths_location }}/plugins:/home/Shinobi/plugins"
   - "/mnt/unionfs/Media/ZM:/home/Shinobi/videos"
   - "/dev/shm/shinobi/streams:/dev/shm/streams"
@@ -103,7 +109,8 @@ shinobi_docker_volumes: "{{ shinobi_docker_volumes_default
                                   + docker_volumes_downloads_common }}"
 
 # Devices
-shinobi_docker_devices_default: []
+shinobi_docker_devices_default:
+  - "/dev/dri:/dev/dri"
 shinobi_docker_devices_custom: []
 shinobi_docker_devices: "{{ shinobi_docker_devices_default
                                   + shinobi_docker_devices_custom }}"

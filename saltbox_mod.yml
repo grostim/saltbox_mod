@@ -9,6 +9,7 @@
     - { role: pre_tasks }
     - { role: blueiris, tags: ['blueiris'] }
     - { role: fava, tags: ['fava'] }
+    - { role: freepbx, tags: ['freepbx'] }
     - { role: helloworld, tags: ['helloworld'] }
     - { role: myrole, tags: ['myrole'] }
     - { role: shinobi, tags: ['shinobi'] }

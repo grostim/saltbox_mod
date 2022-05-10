@@ -28,7 +28,7 @@ blueiris_paths_folders_list:
 
 blueiris_web_subdomain: "{{ blueiris_name }}"
 blueiris_web_domain: "{{ user.domain }}"
-blueiris_web_port: "8080"
+blueiris_web_port: "81"
 blueiris_web_url: "{{ 'https://' + blueiris_web_subdomain + '.' + blueiris_web_domain
                         if (reverse_proxy_is_enabled)
                         else 'http://localhost:' + blueiris_web_port }}"
@@ -67,6 +67,8 @@ blueiris_docker_image: "jshridha/blueiris:{{ blueiris_docker_image_tag }}"
 # Ports
 blueiris_docker_ports_defaults:
   - "{{ blueiris_web_port }}"
+  - "8080"
+  - "5900"
 blueiris_docker_ports_custom: []
 blueiris_docker_ports: "{{ blueiris_docker_ports_defaults
                                 + blueiris_docker_ports_custom
@@ -128,8 +130,7 @@ blueiris_docker_networks: "{{ docker_networks_common
                                    + blueiris_docker_networks_custom }}"
 
 # Capabilities
-blueiris_docker_capabilities_default:
-  - privileged
+blueiris_docker_capabilities_default: []
 blueiris_docker_capabilities_custom: []
 blueiris_docker_capabilities: "{{ blueiris_docker_capabilities_default
                                        + blueiris_docker_capabilities_custom }}"
@@ -145,3 +146,6 @@ blueiris_docker_restart_policy: unless-stopped
 
 # State
 blueiris_docker_state: started
+
+# Privledged
+blueiris_docker_privileged: "yes"
