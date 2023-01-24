@@ -67,10 +67,12 @@ freepbx_docker_image: "tiredofit/freepbx:{{ freepbx_docker_image_tag }}"
 # Ports
 freepbx_docker_ports_defaults:
   - "{{ freepbx_web_port }}"
-  - "5060"
-  - "5160"
-  - "18000-20000/udp"
-freepbx_docker_ports_custom: []
+freepbx_docker_ports_custom:
+  - "5060:5060/udp"
+  - "5160:5160/udp"
+  - "5060:5060/tcp"
+  - "5160:5160/tcp"
+  - "18000-20000:18000-20000/udp"
 freepbx_docker_ports: "{{ freepbx_docker_ports_defaults
                                 + freepbx_docker_ports_custom
                              if (not reverse_proxy_is_enabled)

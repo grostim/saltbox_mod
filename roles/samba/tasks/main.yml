@@ -1,0 +1,54 @@
+---
+- name: Check config exists
+  ansible.builtin.stat:
+    path: "{{ samba_config_location }}"
+  register: samba_config
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "/etc/samba"
+    state: directory
+    owner: root
+    group: root
+    mode: "0775"
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0775"
+  with_items: "{{ lookup('vars', role_name + '_paths_folders_list') }}"
+
+- name: Import default config
+  ansible.builtin.template:
+    src: smb.conf
+    dest: "{{ samba_location }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0775"
+  when: not samba_config.stat.exists
+
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: "{{ samba_config_location }}"
+    dest: /etc/samba/smb.conf
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    state: link
+  when: not samba_config.stat.exists
+
+- name: Ensure Samba-related packages are installed (Debian).
+  apt:
+    name:
+      - samba
+      - samba-common
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure Samba is running and set to start on boot.
+  service:
+    name: smbd
+    state: started
+    enabled: true

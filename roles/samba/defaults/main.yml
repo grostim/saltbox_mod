@@ -1,0 +1,24 @@
+#########################################################################
+# Title:         Sandbox: Samba                                         #
+# Author(s):     sorg                                                   #
+# URL:           https://github.com/saltyorg/Sandbox                    #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+################################
+# Basics
+################################
+
+samba_name: samba
+
+################################
+# Paths
+################################
+
+samba_folder: "{{ samba_name }}"
+samba_location: "{{ server_appdata_path }}/{{ samba_folder }}"
+samba_config_location: "{{ samba_location }}/smb.conf"
+samba_paths_folders_list:
+  - "{{ samba_location }}"

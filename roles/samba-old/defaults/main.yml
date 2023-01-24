@@ -1,0 +1,136 @@
+##########################################################################
+# Title:            Sandbox: template role                               #
+# Author(s):        Grostim                                              #
+# URL:              https://github.com/saltyorg/Saltbox_mod              #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+samba_name: samba
+
+################################
+# Paths
+################################
+
+samba_paths_folder: "{{ samba_name }}"
+samba_paths_location: "{{ server_appdata_path }}/{{ samba_paths_folder }}"
+samba_paths_folders_list:
+  - "{{ samba_paths_location }}"
+
+################################
+# Web
+################################
+
+samba_web_subdomain: "{{ samba_name }}"
+samba_web_domain: "{{ user.domain }}"
+samba_web_port: ""
+
+
+################################
+# DNS
+################################
+
+samba_dns_record: "{{ samba_web_subdomain }}"
+samba_dns_zone: "{{ samba_web_domain }}"
+samba_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+################################
+# Docker
+################################
+
+# Container
+samba_docker_container: "{{ samba_name }}"
+
+# Image
+samba_docker_image_pull: true
+samba_docker_image_tag: "latest"
+samba_docker_image: "crazymax/samba:{{ samba_docker_image_tag }}"
+
+# Ports
+samba_docker_ports_defaults:
+  - "{{ samba_web_port }}"
+samba_docker_ports_custom: []
+samba_docker_ports: "{{ samba_docker_ports_defaults
+                                + samba_docker_ports_custom
+                             if (not reverse_proxy_is_enabled)
+                             else [] + samba_docker_ports_custom }}"
+
+# Envs
+samba_docker_envs_default:
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+  TZ: "{{ tz }}"
+samba_docker_envs_custom:
+  SAMBA_LOG_LEVEL: "3"
+  SAMBA_WORKGROUP: "WORKGROUP"
+  SAMBA_SERVER_STRING: "familyflix.art"
+
+samba_docker_envs: "{{ samba_docker_envs_default
+                               | combine(samba_docker_envs_custom) }}"
+
+# Commands
+samba_docker_commands_default: []
+samba_docker_commands_custom: []
+samba_docker_commands: "{{ samba_docker_commands_default
+                                   + samba_docker_commands_custom }}"
+
+# Volumes
+samba_docker_volumes_default:
+  - /mnt:/mnt_ext
+  - /opt/samba:/data
+samba_docker_volumes_custom: []
+samba_docker_volumes: "{{ samba_docker_volumes_default }}"
+
+# Devices
+samba_docker_devices_default: []
+samba_docker_devices_custom: []
+samba_docker_devices: "{{ samba_docker_devices_default
+                                  + samba_docker_devices_custom }}"
+
+# Hosts
+samba_docker_hosts_default: []
+samba_docker_hosts_custom: []
+samba_docker_hosts: "{{ docker_hosts_common
+                                | combine(samba_docker_hosts_default)
+                                | combine(samba_docker_hosts_custom) }}"
+
+# Labels
+samba_docker_labels_default: {}
+samba_docker_labels_custom: {}
+samba_docker_labels: "{{ docker_labels_common
+                                 | combine(samba_docker_labels_default)
+                                 | combine(samba_docker_labels_custom) }}"
+
+# Hostname
+samba_docker_hostname: "{{ samba_name }}"
+
+# Networks
+samba_docker_networks_alias: "{{ samba_name }}"
+samba_docker_network_mode: host
+samba_docker_networks: []
+
+# Capabilities
+samba_docker_capabilities_default: []
+samba_docker_capabilities: "{{ samba_docker_capabilities_default
+                                       + samba_docker_capabilities_custom }}"
+
+# Security Opts
+samba_docker_security_opts_default: []
+samba_docker_security_opts_custom: []
+samba_docker_security_opts: "{{ samba_docker_security_opts_default
+                                        + samba_docker_security_opts_custom }}"
+
+# Restart Policy
+samba_docker_restart_policy: unless-stopped
+
+# State
+samba_docker_state: started
